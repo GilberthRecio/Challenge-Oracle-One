@@ -1,0 +1,171 @@
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+
+   
+
+
+</head>
+
+<body style="background-color:rgba(255, 239, 215, 0.842);">
+    <div class="container">
+
+        <div class="row" style="margin-top:2%">
+            <div class="col text-center">
+              <h1 class="display-4">Bienvenido a Recfire Encode</h1>
+              <hr>
+              <p class="lead">En esta página podrás cifrar y descifrar texto de manera segura y confidencial. Nuestra plataforma utiliza los algoritmos de cifrado más avanzados para garantizar la privacidad de tus datos. ¡Protege tus mensajes hoy mismo con Recfire Encode!</p>
+            </div>
+          </div>
+
+        <div class="row" style="margin-top: 5%;justify-content: center;">
+            <div class="col-md-6">
+                <div class="card mb-3" style="background-color: #f7f7f7;">
+                    <div class="card-body">
+                        <h5 class="card-title">Encriptadador y Desencriptador </h5>
+                        <textarea id="textos" type="text" class="form-control mb-3"
+                            placeholder="Ingresa el texto"></textarea>
+                        <div class="d-grid gap-2 mt-3">
+                            <button type="button" id="Encriptar" class="btn btn-outline-primary">Encriptar</button>
+                            <button type="button" id="Desencriptar"
+                                class="btn btn-outline-success">Desencriptar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card mb-3" style="background-color: #f7f7f7;">
+                    <div class="card-body">
+                        <h5 class="card-title" style="text-align: center;">Resultados</h5>
+                        <div class="chat" style="height: 200px;">
+                            <div class="chat-message">
+                                <ul id="texto"></ul>
+                            </div>
+                        </div>
+                        <div class="d-grid gap-2 mt-3">
+                            <button type="button" id="Copiar" class="btn btn-outline-info">Copiar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</body>
+
+
+<script>
+    var dato = [];
+    var datoCodificado = "";
+    var datoDescodificado = "";
+
+    var textarea = document.querySelector("textarea")
+    textarea.focus();
+
+    var button1 = document.getElementById("Encriptar");
+    button1.onclick = codificar;
+
+    var button2 = document.getElementById("Desencriptar");
+    button2.onclick = descodificar;
+
+    var button3 = document.getElementById("Copiar");
+    button3.onclick = copiar;
+
+    function mostrarTexto() {
+        document.getElementById("textos").value = "";
+        var lista = document.getElementById("texto");
+        lista.innerHTML = "";
+        for (var i = 0; i < dato.length; i++) {
+            lista.innerText = dato[i];
+        }
+
+    }
+    function copiar() {
+        var texto = document.getElementById("texto");
+        var textCopiado = document.createElement("textarea");
+        textCopiado.value = texto.innerText;
+        document.body.appendChild(textCopiado);
+        textCopiado.select();
+        document.execCommand("copy");
+        document.body.removeChild(textCopiado);
+    }
+
+
+    function codificar() {
+        //Se agrega los datos del input al array
+        var Array = textarea.value.split('');
+        // For que busca y saca la letras del array
+        for (var i = 0; i < Array.length; i++) {
+
+            Letra = Array[i];
+            if (Letra == "a") {
+                Letra = "ai"
+            }
+            if (Letra == "e") {
+                Letra = "enter"
+            }
+            if (Letra == "i") {
+                Letra = "imes"
+            }
+            if (Letra == "o") {
+                Letra = "ober"
+            }
+            if (Letra == "u") {
+                Letra = "ufat"
+            }
+            // Hacer algo con la letra actual
+            datoCodificado += Letra;
+
+        }
+        dato.push(datoCodificado);
+        datoCodificado = "";
+        mostrarTexto();
+
+    }
+
+    function descodificar() {
+        //Se agrega los datos del input al array
+        var Array = textarea.value.split('');
+        // For que busca y saca la letras del array
+        for (var i = 0; i < Array.length; i++) {
+
+            Letra = Array[i];
+            if (Letra == "a" && Array[i + 1] == "i") {
+                Letra = "a"
+                i = i + 1;
+            }
+            if (Letra == "e" && Array[i + 1] == "n" && Array[i + 2] == "t" && Array[i + 3] == "e" && Array[i + 4] == "r") {
+                Letra = "e"
+                i = i + 4;
+            }
+            if (Letra == "i" && Array[i + 1] == "m" && Array[i + 2] == "e" && Array[i + 3] == "s") {
+                Letra = "i"
+                i = i + 3;
+            }
+            if (Letra == "o" && Array[i + 1] == "b" && Array[i + 2] == "e" && Array[i + 3] == "r") {
+                Letra = "o"
+                i = i + 3;
+            }
+            if (Letra == "u" && Array[i + 1] == "f" && Array[i + 2] == "a" && Array[i + 3] == "t") {
+                Letra = "u"
+                i = i + 3;
+            }
+            // Hacer algo con la letra actual
+            datoDescodificado += Letra;
+        }
+        dato.push(datoDescodificado);
+        datoDescodificado = "";
+        mostrarTexto();
+
+    }
+
+
+</script>
+
+<footer class="bg-primary text-center text-expand-lg" ></footer>
+  <!-- Copyright -->
+  <div class="text-center p-3">
+    ©2023 Copyright: Gilberth Recio
+   
+  </div>
+  <!-- Copyright -->
+</footer>
